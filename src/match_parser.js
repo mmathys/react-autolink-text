@@ -29,10 +29,10 @@ const charBeforeProtocolRelMatchRegex = /^(.)?\/\//;
 const urlRegex = [
   '(?:', // parens to cover match for protocol (optional), and domain
 
-    '(',  // *** Capturing group $1, for a protocol-prefixed url (ex: http://google.com)
-      protocolRegex.source,
+    '(',  // *** Capturing group $1, for a mailbox (ex: hello@example.com)
       mailboxRegex.source,
     ')',
+    
     '|',
 
     '(',  // *** Capturing group $1, for a protocol-prefixed url (ex: http://google.com)
@@ -63,11 +63,13 @@ const urlRegex = [
 
 export default function(text, disableUrlStripping = false) {
   const regex = new RegExp(urlRegex, 'gi');
+  console.log(regex)
   const matches = [];
 
   var match;
   while ((match = regex.exec(text)) !== null) {
     let [matchedText, protocolMailtoMatch, protocolUrlMatch, wwwProtocolRelativeMatch, tldProtocolRelativeMatch] = match;
+    console.log(match)
     const protocolRelativeMatch = wwwProtocolRelativeMatch || tldProtocolRelativeMatch;
 
     // If it's a protocol-relative '//' match, remove the character

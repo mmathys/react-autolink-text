@@ -43,6 +43,14 @@ export default class URLMatch {
   getUrl() {
     let url = this._url;
 
+    if(this._protocolMailtoMatch) {
+      if(url.indexOf("mailto:") !== 0) {
+        url = "mailto:" + url 
+      }
+      this._url = url
+      this.protocolPrepended = true
+    }
+    
     // if the url string doesn't begin with a protocol, assume 'http://'
     if( !this._protocolMailtoMatch && !this._protocolRelativeMatch && !this._protocolUrlMatch && !this.protocolPrepended ) {
       url = this._url = 'http://' + url;

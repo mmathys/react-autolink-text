@@ -63,13 +63,11 @@ const urlRegex = [
 
 export default function(text, disableUrlStripping = false) {
   const regex = new RegExp(urlRegex, 'gi');
-  console.log(regex)
   const matches = [];
 
   var match;
   while ((match = regex.exec(text)) !== null) {
     let [matchedText, protocolMailtoMatch, protocolUrlMatch, wwwProtocolRelativeMatch, tldProtocolRelativeMatch] = match;
-    console.log(match)
     const protocolRelativeMatch = wwwProtocolRelativeMatch || tldProtocolRelativeMatch;
 
     // If it's a protocol-relative '//' match, remove the character
